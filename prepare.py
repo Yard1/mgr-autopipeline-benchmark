@@ -71,12 +71,14 @@ def get_preprocessor(data: pd.DataFrame) -> Pipeline:
                 )
         ])
 
-def prepare_data(data_idx, random_seed, stratify,*, preprocess=False):
+def prepare_data(data_idx, random_seed, stratify,*, preprocess=False, split=True):
     data = pd.read_parquet(get_classical_ml_datasets()[data_idx])
     y = pd.Series(LabelEncoder().fit_transform(data["target"]), name="target")
     X = data.drop("target", axis=1)
     if preprocess:
         X = get_preprocessor(data).fit_transform(X)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=random_seed, test_size=0.25, stratify=y if stratify else None)
-    return X_train, X_test, y_train, y_test
+    if split:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=random_seed, test_size=0.25, stratify=y if stratify else None)
+        return X_train, X_test, y_train, y_test
+    return X, y
 

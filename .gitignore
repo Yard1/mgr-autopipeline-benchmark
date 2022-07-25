@@ -229,3 +229,5 @@ autogluon/
 autosklearn/
 tpot/
 tmp/
+catboost_info/
+mine/
