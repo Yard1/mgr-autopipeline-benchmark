@@ -20,7 +20,7 @@ f1_weighted.__name__ = "f1_weighted"
 
 def run(data_idx, random_seed):
     print(f"!FITTING {data_idx}_{random_seed}")
-    ray.init()
+    ray.init(num_cpus=4)
     X, y = prepare_data(data_idx, random_seed, True, preprocess=False, split=False)
     y = y.astype("category")
     if y.nunique() > 2:
@@ -37,11 +37,11 @@ def run(data_idx, random_seed):
         trainer_config={
             "secondary_level": "uncommon",
             "cache": True,
-            "early_stopping": True,
+            "early_stopping": False,
             "return_test_scores_during_tuning": False,
-            "tuning_time": 60,
+            "tuning_time": 120,
             "stacking_level": 0,
-            "tune_kwargs": {"max_concurrent": 1, "trainable_n_jobs": 5, "verbose": 0, "fail_fast": False, "raise_on_failed_trial": False}
+            "tune_kwargs": {"max_concurrent": 1, "trainable_n_jobs": 2, "verbose": 0, "fail_fast": False, "raise_on_failed_trial": False}
         },
         stacking_cv=5,
         cv=5,
@@ -63,5 +63,5 @@ def run(data_idx, random_seed):
     shutil.rmtree("/tmp/joblib", ignore_errors=True)
 
 if __name__ == "__main__":
-    for i in range(0, 39):
+    for i in range(22, 39):
         run(i, 1)
