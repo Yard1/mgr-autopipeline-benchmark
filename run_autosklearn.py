@@ -17,7 +17,7 @@ def run(data_idx, random_seed):
     else:
         scorer = partial(f1_score, zero_division=0)
     automl = autosklearn.classification.AutoSklearnClassifier(
-        time_left_for_this_task=60,
+        time_left_for_this_task=3600,
         tmp_folder=f'./tmp/autosklearn_{data_idx}_{random_seed}/out',
         n_jobs=16,
         # Each one of the 4 jobs is allocated 2GB
@@ -26,8 +26,6 @@ def run(data_idx, random_seed):
         metric=autosklearn.metrics.make_scorer(
             'f1_weighted', scorer
         ),
-        resampling_strategy='cv',
-        resampling_strategy_arguments={'folds': 5},
         delete_tmp_folder_after_terminate=False,
         initial_configurations_via_metalearning=0,
     )

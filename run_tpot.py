@@ -19,7 +19,7 @@ def run(data_idx, random_seed):
         scorer = partial(f1_score, zero_division=0)
         scorer.__name__ = "f1"
     makedirs(f"./tmp/tpot_{data_idx}_{random_seed}/out", exist_ok=True)
-    pipeline_optimizer = TPOTClassifier(max_time_mins=1, cv=5, memory="auto", log_file=f"./tmp/tpot_{data_idx}_{random_seed}/out/log.txt",
+    pipeline_optimizer = TPOTClassifier(max_time_mins=60, cv=5, memory="auto", log_file=f"./tmp/tpot_{data_idx}_{random_seed}/out/log.txt",
                                     random_state=random_seed, verbosity=3, n_jobs=16, scoring=make_scorer(scorer))
     pipeline_optimizer.fit(X_train, y_train)
     y_hat = pipeline_optimizer.predict(X_test)
