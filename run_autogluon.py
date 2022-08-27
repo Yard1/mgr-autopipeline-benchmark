@@ -21,8 +21,8 @@ def run(data_idx, random_seed):
     else:
         func = f1_score
         eval_metric = "f1"
-    predictor = TabularPredictor(label="target", path=f"./tmp/autogluon_{data_idx}_{random_seed}/out", eval_metric=eval_metric, ag_fit_args={'num_cpus': 16})
-    predictor = predictor.fit(X_train, time_limit=3600, presets='best_quality')
+    predictor = TabularPredictor(label="target", path=f"./tmp/autogluon_{data_idx}_{random_seed}/out", eval_metric=eval_metric)
+    predictor = predictor.fit(X_train, time_limit=3600, presets='best_quality', ag_fit_args={'num_cpus': 16})
     y_hat = predictor.predict(TabularDataset(X_test))
     print(predictor.leaderboard())
     print(f"!NUM_EVALUATED {data_idx}_{random_seed} {len(predictor.leaderboard())}")
