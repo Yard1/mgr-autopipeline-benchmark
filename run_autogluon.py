@@ -37,7 +37,7 @@ if __name__ == "__main__":
     args, _ = parser.parse_known_args()
     random_seed = args.seed
     for data_idx in range(39):
-        makedirs(f"./tmp/tpot_{data_idx}_{random_seed}/", exist_ok=True)
-        with open(f"./tmp/tpot_{data_idx}_{random_seed}/log.txt", 'w') as f:
+        makedirs(f"./tmp/autogluon_{data_idx}_{random_seed}/", exist_ok=True)
+        with open(f"./tmp/autogluon_{data_idx}_{random_seed}/log.txt", 'w') as f:
             with contextlib.redirect_stderr(f), contextlib.redirect_stdout(f):
-                run(i, random_seed)
+                run(data_idx, random_seed)

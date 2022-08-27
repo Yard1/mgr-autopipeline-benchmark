@@ -39,4 +39,4 @@ if __name__ == "__main__":
         makedirs(f"./tmp/tpot_{data_idx}_{random_seed}/", exist_ok=True)
         with open(f"./tmp/tpot_{data_idx}_{random_seed}/log.txt", 'w') as f:
             with contextlib.redirect_stderr(f), contextlib.redirect_stdout(f):
-                run(i, random_seed)
+                run(data_idx, random_seed)
