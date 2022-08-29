@@ -27,6 +27,7 @@ def run(data_idx, random_seed):
     print(predictor.leaderboard())
     print(f"!NUM_EVALUATED {data_idx}_{random_seed} {len(predictor.leaderboard())}")
     print(f"!RESULT {data_idx}_{random_seed} F1 score", func(y_test, y_hat))
+    shutil.rmtree(f"./tmp/autogluon_{data_idx}_{random_seed}/out")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

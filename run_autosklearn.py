@@ -6,6 +6,7 @@ from sklearn.metrics import f1_score
 import argparse
 from os import makedirs
 import contextlib
+import shutil
 
 f1_weighted = partial(f1_score, zero_division=0, average="weighted")
 
@@ -34,6 +35,7 @@ def run(data_idx, random_seed):
     print(automl.leaderboard(ensemble_only=False))
     print(f"!NUM_EVALUATED {data_idx}_{random_seed} {len(automl.leaderboard(ensemble_only=False))}")
     print(f"!RESULT {data_idx}_{random_seed} F1 score", scorer(y_test, y_hat))
+    shutil.rmtree(f"./tmp/autosklearn_{data_idx}_{random_seed}/out")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
