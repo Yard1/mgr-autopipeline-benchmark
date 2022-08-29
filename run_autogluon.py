@@ -7,6 +7,7 @@ import pandas as pd
 import argparse
 from os import makedirs
 import contextlib
+import shutil
 
 f1_weighted = partial(f1_score, zero_division=0, average="weighted")
 f1_weighted.__name__ = "f1_weighted"
@@ -27,7 +28,7 @@ def run(data_idx, random_seed):
     print(predictor.leaderboard())
     print(f"!NUM_EVALUATED {data_idx}_{random_seed} {len(predictor.leaderboard())}")
     print(f"!RESULT {data_idx}_{random_seed} F1 score", func(y_test, y_hat))
-    shutil.rmtree(f"./tmp/autogluon_{data_idx}_{random_seed}/out")
+    shutil.rmtree(f"./tmp/autogluon_{data_idx}_{random_seed}/out", ignore_errors=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

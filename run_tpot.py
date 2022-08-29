@@ -6,6 +6,7 @@ from sklearn.metrics import f1_score, make_scorer
 import argparse
 from os import makedirs
 import contextlib
+import shutil
 
 f1_weighted = partial(f1_score, zero_division=0, average="weighted")
 f1_weighted.__name__ = "f1_weighted"
@@ -26,6 +27,7 @@ def run(data_idx, random_seed):
     print(pipeline_optimizer.evaluated_individuals_)
     print(f"!NUM_EVALUATED {data_idx}_{random_seed} {len(pipeline_optimizer.evaluated_individuals_)}")
     print(f"!RESULT {data_idx}_{random_seed} F1 score", f1_weighted(y_test, y_hat))
+    shutil.rmtree("/tmp/joblib")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -35,7 +35,7 @@ def run(data_idx, random_seed):
     print(automl.leaderboard(ensemble_only=False))
     print(f"!NUM_EVALUATED {data_idx}_{random_seed} {len(automl.leaderboard(ensemble_only=False))}")
     print(f"!RESULT {data_idx}_{random_seed} F1 score", scorer(y_test, y_hat))
-    shutil.rmtree(f"./tmp/autosklearn_{data_idx}_{random_seed}/out")
+    shutil.rmtree(f"./tmp/autosklearn_{data_idx}_{random_seed}/out", ignore_errors=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
